@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Agent session / Tool Router (domain slice)"
+  description: |
+    DDD bounded context: **agent-session** — Tool Router session lifecycle and session-scoped execution.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "agent-session"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Tool Router"
+
+paths:
+  "/api/v3.1/tool_router/session":
+    post:
+      tags:
+        - Tool Router
+      summary: "Create a new tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}":
+    get:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Get a tool router session by ID"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/execute":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Execute a tool within a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/execute_meta":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Execute a meta tool within a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/link":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Create a link session for a toolkit in a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/proxy_execute":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Execute proxy request within a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/toolkits":
+    get:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Get toolkits for a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/tools":
+    get:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "List meta tools with schemas for a tool router session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/search":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Search for tools using a query"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/mounts/{mount_id}/items":
+    get:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: mount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "List files in a session mount"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/mounts/{mount_id}/download_url":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: mount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Create a presigned download URL for a mount file"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/mounts/{mount_id}/upload_url":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: mount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Create a presigned upload URL for a mount file"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tool_router/session/{session_id}/mounts/{mount_id}/delete":
+    post:
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: mount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tool Router
+      summary: "Delete a file from a session mount"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Platform supporting (domain slice)"
+  description: |
+    DDD bounded context: **platform-supporting** — migration helpers and supporting routes present in filtered spec.
+        Curated slice; canonical spec: `docs/public/openapi.json`. Logs/OpenAPI meta may be internal-only.
+  version: "1.0.0"
+  x-domain-slug: "platform-supporting"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Migration"
+
+paths:
+  "/api/v3.1/migration/get-nanoid":
+    get:
+      tags:
+        - Migration
+      summary: "Get NanoId from UUID"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

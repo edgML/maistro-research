@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Outbound webhooks (domain slice)"
+  description: |
+    DDD bounded context: **outbound-webhooks** — customer webhook subscriptions.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "outbound-webhooks"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Webhooks"
+
+paths:
+  "/api/v3.1/webhook_subscriptions":
+    get:
+      tags:
+        - Webhooks
+      summary: "List webhook subscriptions"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    post:
+      tags:
+        - Webhooks
+      summary: "Create webhook subscription"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/webhook_subscriptions/{id}":
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Webhooks
+      summary: "Get webhook subscription"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Webhooks
+      summary: "Update webhook subscription"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Webhooks
+      summary: "Delete webhook subscription"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/webhook_subscriptions/{id}/rotate_secret":
+    post:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Webhooks
+      summary: "Rotate webhook secret"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/webhook_subscriptions/event_types":
+    get:
+      tags:
+        - Webhooks
+      summary: "List available event types"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

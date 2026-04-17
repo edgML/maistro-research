@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Developer and tenant platform (domain slice)"
+  description: |
+    DDD bounded context: **developer-tenant** — organization and project configuration, usage, API keys.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "developer-tenant"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Organization"
+  - name: "API Keys"
+  - name: "Team"
+  - name: "Payments"
+
+paths:
+  "/api/v3.1/org/usage/summary":
+    get:
+      tags:
+        - Organization
+      summary: "Org usage summary"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/project/config":
+    get:
+      tags:
+        - Projects
+      summary: "Get project configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    patch:
+      tags:
+        - Projects
+      summary: "Update project configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/project/usage/summary":
+    get:
+      tags:
+        - Projects
+      summary: "Project usage summary"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/owner/project/new":
+    post:
+      tags:
+        - Projects
+      summary: "Create a new project"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/owner/project/list":
+    get:
+      tags:
+        - Projects
+      summary: "List all projects"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/owner/project/{nano_id}":
+    get:
+      parameters:
+        - name: nano_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Projects
+      summary: "Get project details by ID With Org Api key"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: nano_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Projects
+      summary: "Delete a project"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/org/owner/project/{nano_id}/regenerate_api_key":
+    post:
+      parameters:
+        - name: nano_id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Projects
+      summary: "Delete and generate new API key for project"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

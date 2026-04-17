@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — File delivery (domain slice)"
+  description: |
+    DDD bounded context: **file-delivery** — file list and upload request.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "file-delivery"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Files"
+
+paths:
+  "/api/v3.1/files/list":
+    get:
+      tags:
+        - Files
+      summary: "List files with optional app and action filters"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/files/upload/request":
+    post:
+      tags:
+        - Files
+      summary: "Create presigned URL for request file upload to S3"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

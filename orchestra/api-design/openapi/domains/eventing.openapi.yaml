@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Eventing and automation (domain slice)"
+  description: |
+    DDD bounded context: **eventing** — trigger types and trigger instances.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "eventing"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Triggers"
+
+paths:
+  "/api/v3.1/trigger_instances/{slug}/upsert":
+    post:
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Triggers
+      summary: "Create or update a trigger"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/trigger_instances/active":
+    get:
+      tags:
+        - Triggers
+      summary: "List active triggers"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/trigger_instances/manage/{triggerId}":
+    patch:
+      parameters:
+        - name: triggerId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Triggers
+      summary: "Enable or disable a trigger"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: triggerId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Triggers
+      summary: "Delete a trigger"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/triggers_types":
+    get:
+      tags:
+        - Triggers
+      summary: "List trigger types"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/triggers_types/list/enum":
+    get:
+      tags:
+        - Triggers
+      summary: "List trigger type enums"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/triggers_types/{slug}":
+    get:
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Triggers
+      summary: "Get trigger type by slug"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Connection and trust (domain slice)"
+  description: |
+    DDD bounded context: **connection-trust** — auth configs, connected accounts, link flows, auth session info.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "connection-trust"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Authentication"
+  - name: "Auth Configs"
+  - name: "Connected Accounts"
+
+paths:
+  "/api/v3.1/auth/session/info":
+    get:
+      tags:
+        - Authentication
+      summary: "Get current user session information"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/auth_configs":
+    get:
+      tags:
+        - Auth Configs
+      summary: "List authentication configurations with optional filters"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    post:
+      tags:
+        - Auth Configs
+      summary: "Create new authentication configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/auth_configs/{nanoid}":
+    get:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Auth Configs
+      summary: "Get single authentication configuration by ID"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    patch:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Auth Configs
+      summary: "Update an authentication configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Auth Configs
+      summary: "Delete an authentication configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/auth_configs/{nanoid}/{status}":
+    patch:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Auth Configs
+      summary: "Enable or disable an authentication configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/connected_accounts":
+    get:
+      tags:
+        - Connected Accounts
+      summary: "List connected accounts with optional filters"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    post:
+      tags:
+        - Connected Accounts
+      summary: "Create a new connected account"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/connected_accounts/{nanoid}":
+    get:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Connected Accounts
+      summary: "Get connected account details by ID"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    patch:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Connected Accounts
+      summary: "Update a connected account"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Connected Accounts
+      summary: "Delete a connected account"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/connected_accounts/{nanoId}/status":
+    patch:
+      parameters:
+        - name: nanoId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Connected Accounts
+      summary: "Enable or disable a connected account"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/connected_accounts/{nanoid}/refresh":
+    post:
+      parameters:
+        - name: nanoid
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Connected Accounts
+      summary: "Refresh authentication for a connected account"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/connected_accounts/link":
+    post:
+      tags:
+        - Connected Accounts
+      summary: "Create a new auth link session"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

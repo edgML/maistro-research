@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Composition / Recipes (domain slice — placeholder)"
+  description: |
+    DDD bounded context: **composition** — Recipes (reusable modules combining tools).
+    No Recipe routes are present in the current filtered `docs/public/openapi.json`.
+    This placeholder keeps the domain slice valid; extend when routes are published.
+  version: "1.0.0"
+  x-domain-slug: composition
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: Recipes
+    description: Recipe management (placeholder)
+  - name: Recipe
+    description: Recipe execution (placeholder)
+paths:
+  "/api/v3.1/recipes/placeholder":
+    get:
+      tags:
+        - Recipes
+      summary: "Placeholder — no public Recipe paths in filtered spec yet"
+      x-not-implemented-in-slice: true
+      responses:
+        '501':
+          description: Extend this slice when Recipe paths exist in openapi.json
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+security:
+  - ApiKeyAuth: []

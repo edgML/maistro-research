@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — MCP bridge (domain slice)"
+  description: |
+    DDD bounded context: **mcp-bridge** — MCP servers and instances.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "mcp-bridge"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "MCP"
+  - name: "MCP Partner"
+
+paths:
+  "/api/v3.1/mcp/servers":
+    get:
+      tags:
+        - MCP
+      summary: "List MCP servers with optional filters and pagination"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    post:
+      tags:
+        - MCP
+      summary: "Create a new MCP server"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/servers/custom":
+    post:
+      tags:
+        - MCP
+      summary: "Create a new custom MCP server with multiple apps"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/servers/generate":
+    post:
+      tags:
+        - MCP
+      summary: "Generate MCP URL with custom parameters"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/{id}":
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "Get MCP server details by ID"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "Update MCP server configuration"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "Delete an MCP server"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/app/{appKey}":
+    get:
+      parameters:
+        - name: appKey
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "List MCP servers for a specific app"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/servers/{serverId}/instances":
+    get:
+      parameters:
+        - name: serverId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "List all instances for an MCP server"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+    post:
+      parameters:
+        - name: serverId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "Create a new MCP server instance"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/mcp/servers/{serverId}/instances/{instanceId}":
+    delete:
+      parameters:
+        - name: serverId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: instanceId
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - MCP
+      summary: "Delete an MCP server instance and associated connected accounts"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Tool runtime (domain slice)"
+  description: |
+    DDD bounded context: **tool-runtime** — execute, proxy, input, scopes.
+        Curated slice; canonical spec: `docs/public/openapi.json`.
+  version: "1.0.0"
+  x-domain-slug: "tool-runtime"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Tools"
+
+paths:
+  "/api/v3.1/tools/execute/{tool_slug}":
+    post:
+      parameters:
+        - name: tool_slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tools
+      summary: "Execute tool"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tools/execute/{tool_slug}/input":
+    post:
+      parameters:
+        - name: tool_slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tools
+      summary: "Generate tool inputs from natural language"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tools/execute/proxy":
+    post:
+      tags:
+        - Tools
+      summary: "Execute proxy request"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tools/scopes/required":
+    post:
+      tags:
+        - Tools
+      summary: "Get required scopes for tools"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []

@@ -1,0 +1,13 @@
+{
+  "title": "API design",
+  "defaultOpen": true,
+  "pages": [
+    "index",
+    "domain-model",
+    "architecture",
+    "lifecycles",
+    "contracts",
+    "sdk-api-mapping",
+    "openapi-backlog"
+  ]
+}

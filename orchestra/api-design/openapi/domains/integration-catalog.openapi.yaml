@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: "Maistro API — Integration catalog (domain slice)"
+  description: |
+    DDD bounded context: **integration-catalog** — tool and toolkit discovery (no execution).
+        Curated slice; canonical spec: `docs/public/openapi.json`. Not exhaustive.
+  version: "1.0.0"
+  x-domain-slug: "integration-catalog"
+servers:
+  - url: https://backend.maistro.dev
+    description: Production
+tags:
+  - name: "Toolkits"
+  - name: "Tools"
+
+paths:
+  "/api/v3.1/tools":
+    get:
+      tags:
+        - Tools
+      summary: "List available tools"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tools/enum":
+    get:
+      tags:
+        - Tools
+      summary: "Get tool enum list"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/tools/{tool_slug}":
+    get:
+      parameters:
+        - name: tool_slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Tools
+      summary: "Get tool by slug"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/toolkits":
+    get:
+      tags:
+        - Toolkits
+      summary: "List available toolkits"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/toolkits/categories":
+    get:
+      tags:
+        - Toolkits
+      summary: "List toolkit categories"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/toolkits/changelog":
+    get:
+      tags:
+        - Toolkits
+      summary: "Get toolkits changelog"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/toolkits/multi":
+    post:
+      tags:
+        - Toolkits
+      summary: "Fetch multiple toolkits"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+  "/api/v3.1/toolkits/{slug}":
+    get:
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      tags:
+        - Toolkits
+      summary: "Get toolkit by slug"
+      responses:
+        '200':
+          description: See full operation in docs/public/openapi.json
+
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Project API key authentication
+    UserApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-user-api-key
+      description: User API key authentication
+    OrgApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-org-api-key
+      description: Organization API key authentication
+
+security:
+  - ApiKeyAuth: []
