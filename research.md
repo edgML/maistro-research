@@ -1,10 +1,10 @@
 # Competitive Research — Agent Orchestration Tools
 
-_Compiled: 2026-02-13_
+_Compiled: 2026-04-17_
 
 ## Overview
 
-Research into 16+ projects that orchestrate AI coding agents. The goal: understand abstractions, architectures, and gaps to build the best, most extensible agent orchestrator.
+Research into 17+ projects and platforms spanning **multi-agent coding orchestrators**, **single-agent / cloud sandboxes**, and **agent tool-integration layers**. The goal: understand abstractions, architectures, and gaps to build the best, most extensible agent orchestrator.
 
 ---
 
@@ -322,6 +322,31 @@ Agent code remains the same regardless of deployment target.
 
 ---
 
+### Composio (ComposioHQ)
+
+- **GitHub**: https://github.com/ComposioHQ/composio
+- **Docs**: https://docs.composio.dev/
+- **Stack**: TypeScript (~77%), Python (~21%), monorepo (`ts/`, `python/`, pnpm workspace, Turbo)
+- **Stars**: ~28K+ (high activity; MIT license)
+
+**Positioning:** Not a “coding session orchestrator” like Par or Gas Town. Composio is a **managed tool and auth layer** for agents: it exposes 1000+ **toolkits** (SaaS APIs), **tool search**, **connected-account auth** (OAuth/API keys), **context management**, and a **sandboxed workbench** so agents can turn intent into actions across apps.
+
+**Key abstractions (current SDK patterns):**
+
+- **Sessions**: `Composio` + `create(user_id)` — entry point; returns native **tools** or **MCP** endpoints (`session.mcp.url` / headers for MCP clients).
+- **Toolkits & tools**: Named integrations (e.g. GitHub, Slack); individual callable tools replace older “actions” terminology in v3 docs.
+- **Tool Router / meta-tools**: Runtime helpers such as search, schema fetch, multi-execute, connection management, and remote workbench/bash (see Tool Router docs).
+- **Providers**: Separate npm/PyPI packages (e.g. `@composio/openai-agents`, `composio-langchain`) so the same Composio backend plugs into OpenAI Agents, Anthropic, LangChain, LangGraph, LlamaIndex, Gemini, CrewAI, AutoGen, Vercel AI SDK, Mastra, Cloudflare Workers AI, etc.
+- **MCP — Rube**: An MCP server built on Composio so clients (Cursor, Claude Desktop, VS Code, etc.) can use integrations with one auth story; marketing copy cites 500+ apps via MCP.
+
+**Other product surface:** CLI (`composio.dev` install script), **triggers** (event subscriptions), **white-label auth**, OpenAPI-backed backend (`backend.composio.dev`).
+
+**Strengths:** Largest practical catalog of real-world integrations; auth and token handling centralized; framework-agnostic; strong MCP and native-tool paths; aligns with “MCP = extension protocol” trend in this doc.
+
+**Weaknesses:** Different problem domain than git/tmux multi-agent coding — complements orchestrators rather than replacing them. Network and Composio platform dependency; not focused on PR/CI lifecycle or local worktree isolation.
+
+---
+
 ## Runtime Backend Research
 
 ### Cloud Sandbox Platforms
@@ -381,6 +406,7 @@ Agent code remains the same regardless of deployment target.
 2. **tmux** = dominant session manager for local
 3. **External state > context windows** (Beads, Context Store, GitHub Issues)
 4. **MCP** = emerging extension protocol
+5. **Dedicated tool/auth platforms** (e.g. Composio) = third-party catalogs + OAuth for actions outside the repo
 
 ### What Nobody Does Well (Our Opportunity)
 
@@ -402,6 +428,7 @@ Agent code remains the same regardless of deployment target.
 - **Cline**: Checkpoint/restore system
 - **Multi-Agent Coder**: Context Store, front-loading precision
 - **agent-team**: Agent Client Protocol for 20+ agents
+- **Composio**: Centralized OAuth and connected accounts; tool discovery/search at scale; MCP (`Rube`) + native provider packages as a pattern for “integrations follow the user”
 
 ---
 
@@ -424,6 +451,9 @@ Agent code remains the same regardless of deployment target.
 - [CCPM](https://github.com/automazeio/ccpm)
 - [AI-Agents-Orchestrator](https://github.com/hoangsonww/AI-Agents-Orchestrator)
 - [wshobson/agents](https://github.com/wshobson/agents)
+- [Composio (GitHub)](https://github.com/ComposioHQ/composio)
+- [Composio Documentation](https://docs.composio.dev/)
+- [Composio: How it works](https://docs.composio.dev/docs/how-composio-works)
 - [LangChain: Two Agent-Sandbox Patterns](https://blog.langchain.com/the-two-patterns-by-which-agents-connect-sandboxes/)
 - [Modal: Top Code Sandbox Products](https://modal.com/blog/top-code-agent-sandbox-products)
 - [Rise of Coding Agent Orchestrators](https://www.aviator.co/blog/the-rise-of-coding-agent-orchestrators/)
